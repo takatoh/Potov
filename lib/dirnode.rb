@@ -9,9 +9,10 @@ class DirNode
 
   attr_reader :path
 
-  def initialize(path, root = false)
+  def initialize(path, root = false, root_path = nil)
     @path = path
     @root = root
+    @root_path = root_path ? root_path : path
     @children = []
   end
 
@@ -30,6 +31,10 @@ class DirNode
     @path.split("/")[-1]
   end
 
+  def rel_path
+    @path.sub("#{@root_path}/", "")
+  end
+
   def add(path)
     path2 = path.sub(/#{@path}\/?/, "")
     unless path2.empty?
@@ -37,7 +42,7 @@ class DirNode
       ch = if @children.map{|c| c.name }.include?(m[0])
         @children.select{|c| c.name == m[0] }.first
       else
-        c = DirNode.new(path)
+        c = DirNode.new(path, false, @root_path)
         @children << c
         c
       end
@@ -59,7 +64,7 @@ class DirNode
     ind = ind - 4 unless include_root
     result = ""
     result << " " * ind + "<ul>\n" if @root && include_root
-    result << " " * (ind + 2) + "<li>#{name}" if include_root
+    result << " " * (ind + 2) + "<li path=#{rel_path}>#{name}" if include_root
     unless @children.empty?
       result << "\n" if include_root
       result << " " * (ind + 4) + "<ul>\n"
