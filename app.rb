@@ -11,7 +11,7 @@ require 'json'
 
 require './boot'
 require './version'
-require 'dirnode'
+require 'dir_node'
 require 'thumbnail_pool'
 
 
