@@ -47,13 +47,13 @@ class PhotoViewApp < Sinatra::Base
 
   # Photo
 
-  get '/photos/*' do
+  get '/photo/*' do
     send_file "#{PV_CONFIG["photo_dir"]}/#{params[:splat][0]}"
    end
 
   # Thumbnail
 
-  get '/thumbnails/*' do
+  get '/thumbnail/*' do
     pool = ThumbnailPool.new(PV_CONFIG["thumbnail_dir"], PV_CONFIG["photo_dir"])
     send_file pool.get(params[:splat][0])
   end
