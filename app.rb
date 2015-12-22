@@ -12,6 +12,7 @@ require 'json'
 require './boot'
 require './version'
 require 'dirnode'
+require 'thumbnail_pool'
 
 
 class PhotoViewApp < Sinatra::Base
@@ -53,8 +54,8 @@ class PhotoViewApp < Sinatra::Base
   # Thumbnail
 
   get '/thumbnails/*' do
-  #   content_type "image/jpeg"
-    send_file "#{PV_CONFIG["thumbnail_dir"]}/#{params[:splat][0]}"
+    pool = ThumbnailPool.new(PV_CONFIG["thumbnail_dir"], PV_CONFIG["photo_dir"])
+    send_file pool.get(params[:splat][0])
   end
 
 end
