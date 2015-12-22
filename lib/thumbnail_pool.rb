@@ -6,6 +6,8 @@ require 'pathname'
 
 class ThumbnailPool
 
+  PHOTO_TYPES = %w( .png .bmp .jpg .jpeg .gif .tif .tiff )
+
   def initialize(thumbnail_dir, photo_dir)
     @dir = thumbnail_dir
     @photo_dir = photo_dir
@@ -21,24 +23,30 @@ class ThumbnailPool
   # Make thumbnail.
   def make(path)
     photo_path = "#{@photo_dir}/#{path}"
-    puts photo_path
     ext = File.extname(path)
+    return nil unless PHOTO_TYPES.include?(ext)
     thumb_path = "#{@dir}/#{path.sub(ext, ".jpg")}"
-    puts thumb_path
-    parent = Pathname.new(thumb_path).parent
-    parent.mkpath unless parent.exist?
-    system("convert -scale 150x150 #{photo_path} #{thumb_path}")
-    thumb_path.sub("#{@dir}/", "")
+    thumb = Pathname.new(thumb_path)
+    unless thumb.exist?
+      parent = thumb.parent
+      parent.mkpath unless parent.exist?
+      system("convert -scale 150x150 #{photo_path} #{thumb_path}")
+      thumb_path.sub("#{@dir}/", "")
+    else
+      nil
+    end
   end
 
   # Make thumbnail of photos in specified directory.
   def make_r(dir)
+    thumbs = []
     dir = Pathname.new("#{@photo_dir}/#{dir}")
     dir.find do |f|
       if f.file?
-        make(f.relative_path_from(Pathname.new(@photo_dir)).to_s)
+        thumbs << make(f.relative_path_from(Pathname.new(@photo_dir)).to_s)
       end
     end
+    thumbs.compact
   end
 
 end   # of class ThumbnailPool
