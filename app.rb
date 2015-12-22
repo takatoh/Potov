@@ -44,7 +44,13 @@ class PhotoViewApp < Sinatra::Base
     sass params[:style].intern
   end
 
-  #
+  # Photo
+
+  get '/photos/*' do
+    send_file "#{PV_CONFIG["photo_dir"]}/#{params[:splat][0]}"
+   end
+
+  # Thumbnail
 
   get '/thumbnails/*' do
   #   content_type "image/jpeg"
