@@ -21,17 +21,23 @@ class ThumbnailPool
   # Make thumbnail.
   def make(path)
     photo_path = "#{@photo_dir}/#{path}"
+    puts photo_path
     ext = File.extname(path)
     thumb_path = "#{@dir}/#{path.sub(ext, ".jpg")}"
-    system("convert #{photo_path} #{thumb_path}")
+    puts thumb_path
+    parent = Pathname.new(thumb_path).parent
+    parent.mkpath unless parent.exist?
+    system("convert -scale 150x150 #{photo_path} #{thumb_path}")
     thumb_path.sub("#{@dir}/", "")
   end
 
   # Make thumbnail of photos in specified directory.
   def make_r(dir)
-    dir = Pathname.new(dir)
+    dir = Pathname.new("#{@photo_dir}/#{dir}")
     dir.find do |f|
-      make(f.relative_path_from(Pathname.new(dir).to_s) if f.file?
+      if f.file?
+        make(f.relative_path_from(Pathname.new(@photo_dir)).to_s)
+      end
     end
   end
 
