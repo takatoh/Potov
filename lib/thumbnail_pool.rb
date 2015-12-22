@@ -40,7 +40,11 @@ class ThumbnailPool
   # Make thumbnail of photos in specified directory.
   def make_r(dir)
     thumbs = []
-    dir = Pathname.new("#{@photo_dir}/#{dir}")
+    if dir == @photo_dir
+      dir = Pathname.new(@photo_dir)
+    else
+      dir = Pathname.new("#{@photo_dir}/#{dir}")
+    end
     dir.find do |f|
       if f.file?
         thumbs << make(f.relative_path_from(Pathname.new(@photo_dir)).to_s)
