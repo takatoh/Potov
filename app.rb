@@ -45,6 +45,15 @@ class PhotoViewApp < Sinatra::Base
     sass params[:style].intern
   end
 
+  # Directory
+
+  get '/dir/*' do
+    @styles = %w( css/base )
+    dir = "#{PV_CONFIG["photo_dir"]}/#{params[:splat][0]}"
+    @files = Dir.glob("#{dir}/*").select{|f| File.file?(f) }.sort
+    haml :directory
+  end
+
   # Photo
 
   get '/photo/*' do
