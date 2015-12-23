@@ -50,7 +50,11 @@ class PhotoViewApp < Sinatra::Base
   get '/dir/*' do
     @styles = %w( css/base )
     dir = "#{PV_CONFIG["photo_dir"]}/#{params[:splat][0]}"
-    @files = Dir.glob("#{dir}/*").select{|f| File.file?(f) }.sort
+    @files = Dir.glob("#{dir}/*").select do |f|
+      photo?(f)
+    end.map do |f|
+      f.sub("#{PV_CONFIG["photo_dir"]}/", "")
+    end.sort
     haml :directory
   end
 
@@ -65,6 +69,14 @@ class PhotoViewApp < Sinatra::Base
   get '/thumbnail/*' do
     pool = ThumbnailPool.new(PV_CONFIG["thumbnail_dir"], PV_CONFIG["photo_dir"])
     send_file pool.get(params[:splat][0])
+  end
+
+
+  private
+
+  def photo?(file)
+    ext = File.extname(file).downcase
+   File.file?(file) && %w( .png .jpg .jpeg .bmp .gif ).include?(ext)
   end
 
 end
