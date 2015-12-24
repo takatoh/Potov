@@ -1,3 +1,5 @@
 %ul
-  - @files.each do |file|
-    %li= file
+  - @photos.each do |photo|
+    %li
+      %a{:href => photo["photo"], :target => "_blank"}
+        %img{:src => photo["thumbnail"]}

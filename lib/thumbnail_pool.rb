@@ -20,6 +20,12 @@ class ThumbnailPool
     "#{@dir}/#{path2}"
   end
 
+  # Get thumbnail url path.
+  def get_url_path(path)
+    ext = File.extname(path)
+    "/thumbnail/#{path.sub(ext, ".jpg")}"
+  end
+
   # Make thumbnail.
   def make(path)
     photo_path = "#{@photo_dir}/#{path}"

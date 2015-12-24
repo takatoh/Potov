@@ -49,12 +49,18 @@ class PhotoViewApp < Sinatra::Base
 
   get '/dir/*' do
     @styles = %w( css/base )
+    pool = ThumbnailPool.new(PV_CONFIG["thumbnail_dir"], PV_CONFIG["photo_dir"])
     dir = "#{PV_CONFIG["photo_dir"]}/#{params[:splat][0]}"
-    @files = Dir.glob("#{dir}/*").select do |f|
+    @photos = Dir.glob("#{dir}/*").select do |f|
       photo?(f)
     end.map do |f|
-      f.sub("#{PV_CONFIG["photo_dir"]}/", "")
-    end.sort
+      f = f.sub("#{PV_CONFIG["photo_dir"]}/", "")
+      "/photo/#{f}"
+      {
+        "photo"     => "/photo/#{f}",
+        "thumbnail" => pool.get_url_path(f)
+      }
+    end.sort_by{|p| p["photo"]}
     haml :directory, layout: false
   end
 
