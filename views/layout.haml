@@ -11,7 +11,14 @@
     %script{:type => "text/javascript", :src => "/lib/js/jquery-1.11.3.min.js"}
     %script{:type => "text/javascript", :src => "/lib/jstree/jstree.min.js"}
     :javascript
-      $(document).ready(function() { $('#tree').jstree(); });
+      $(document).ready(function() {
+        $('#tree')
+        .jstree()
+        .bind('select_node.jstree', function(e, data) {
+          var path = '/dir/' + $('#' + data.node.id).attr('data-path');
+          $('#main').load(path);
+        });
+      });
 
 
   %body

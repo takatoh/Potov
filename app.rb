@@ -55,7 +55,7 @@ class PhotoViewApp < Sinatra::Base
     end.map do |f|
       f.sub("#{PV_CONFIG["photo_dir"]}/", "")
     end.sort
-    haml :directory
+    haml :directory, layout: false
   end
 
   # Photo
