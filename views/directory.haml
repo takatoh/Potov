@@ -6,5 +6,6 @@
   %ul
     - @photos.each do |photo|
       %li
-        %a{:href => photo["photo"], :target => "_blank"}
-          %img{:src => photo["thumbnail"]}
+        %div.photobox
+          %a{:href => photo["photo"], :target => "_blank"}
+            %img{:src => photo["thumbnail"]}
