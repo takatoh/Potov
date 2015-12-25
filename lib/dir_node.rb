@@ -37,7 +37,7 @@ class DirNode
 
   def add(path)
     path2 = path.sub(/#{@path}\/?/, "")
-    unless path2.empty?
+    unless path2.empty? || path2.start_with?(".")
       m = path2.split("/")
       ch = if @children.map{|c| c.name }.include?(m[0])
         @children.select{|c| c.name == m[0] }.first
