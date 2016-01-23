@@ -22,10 +22,11 @@
 
 
   %body
-    %div#container
-      %div#header
+    %div#header
+      %div#header_content
         %h1
           %a{:href => "/"} PhotoView
+    %div#container
       %div#content
         != yield
       %div#footer
