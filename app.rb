@@ -58,7 +58,8 @@ class PhotoViewApp < Sinatra::Base
       "/photo/#{f}"
       {
         "photo"     => "/photo/#{f}",
-        "thumbnail" => pool.get_url_path(f)
+        "thumbnail" => pool.get_url_path(f),
+        "filename"  => File.basename(f)
       }
     end.sort_by{|p| p["photo"]}
     haml :directory, layout: false
