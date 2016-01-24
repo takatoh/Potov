@@ -1,1 +1,1 @@
-PV_VERSION = '0.1.0-beta'
+PV_VERSION = '0.1.0'
