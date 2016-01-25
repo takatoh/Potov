@@ -8,9 +8,11 @@
     %meta{:"http-equiv" => "Content-Type", :comment => "text/html", :charset => "utf-8"}
     - @styles.each do |style|
       %link{:rel => "stylesheet", :type => "text/css", :href => "/#{style}.css"}
+    %link{:rel => "stylesheet", :type => "text/css", :href => "/lib/jquery-ui/jquery-ui.min.css"}
     %link{:rel => "stylesheet", :type => "text/css", :href => "/lib/jstree/themes/default/style.min.css"}
     %script{:type => "text/javascript", :src => "/lib/js/jquery-1.11.3.min.js"}
     %script{:type => "text/javascript", :src => "/lib/jstree/jstree.min.js"}
+    %script{:type => "text/javascript", :src => "/lib/jquery-ui/jquery-ui.min.js"}
     :javascript
       $(document).ready(function() {
         $('#tree')

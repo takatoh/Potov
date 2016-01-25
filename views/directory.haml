@@ -1,11 +1,16 @@
+:javascript
+  $('ul#photo_list').tooltip({
+    position: {my: 'left top'}
+  });
+
 - if @photos.empty?
   %div{ style: "width: 100%; height: 100%; text-align: center; display: table;"}
     %span{ style: "font-size: 3em; color: gray; display: table-cell; vertical-align: middle;"}
       No photos
 - else
-  %ul
+  %ul#photo_list
     - @photos.each do |photo|
       %li
         %div.photobox
-          %a{:href => photo["photo"], :target => "_blank"}
+          %a{:href => photo["photo"], :target => "_blank", :title => photo["filename"]}
             %img{:src => photo["thumbnail"]}
