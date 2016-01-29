@@ -14,5 +14,5 @@
     - @photos.each do |photo|
       %li
         %div.photobox
-          %a{:href => photo["photo"], :target => "_blank", :title => photo["filename"], :'data-lightbox' => "gallery"}
+          %a{:href => photo["photo"], :target => "_blank", :title => photo["filename"], :"data-lightbox" => "gallery", :"data-title" => photo["filename"]}
             %img{:src => photo["thumbnail"]}
