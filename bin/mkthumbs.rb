@@ -3,7 +3,7 @@
 
 
 require './boot'
-require 'thumbnail_pool'
+require './lib/thumbnail_pool'
 
 
 dir = ARGV.shift || PV_CONFIG["photo_dir"]
