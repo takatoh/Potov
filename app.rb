@@ -55,7 +55,6 @@ class PhotoViewApp < Sinatra::Base
       photo?(f)
     end.map do |f|
       f = f.sub("#{PV_CONFIG["photo_dir"]}/", "")
-      "/photo/#{f}"
       {
         "photo"     => "/photo/#{f}",
         "thumbnail" => pool.get_url_path(f),
