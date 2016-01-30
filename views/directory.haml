@@ -1,6 +1,6 @@
 :javascript
   $('ul#photo_list').tooltip({
-    position: {my: 'left top'}
+    position: { my: 'left top' }
   });
 
 - if @photos.empty?
@@ -12,5 +12,5 @@
     - @photos.each do |photo|
       %li
         %div.photobox
-          %a{:href => photo["photo"], :target => "_blank", :title => photo["filename"]}
-            %img{:src => photo["thumbnail"]}
+          %a{ href: photo["photo"], target: "_blank", title: photo["filename"] }
+            %img{ src: photo["thumbnail"] }
