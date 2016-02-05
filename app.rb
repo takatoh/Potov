@@ -1,6 +1,6 @@
 # encoding: utf-8
 #
-#  PhotoView Web App.
+#  Potov Web App.
 #
 
 
@@ -15,7 +15,7 @@ require 'dir_node'
 require 'thumbnail_pool'
 
 
-class PhotoViewApp < Sinatra::Base
+class PotovApp < Sinatra::Base
 
   helpers do
     include Rack::Utils
