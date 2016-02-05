@@ -5,8 +5,8 @@
 
 
 require 'sinatra/base'
-require 'haml'
-require 'sass'
+require 'tilt/haml'
+require 'tilt/sass'
 require 'json'
 
 require './boot'
