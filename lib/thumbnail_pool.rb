@@ -2,6 +2,7 @@
 
 
 require 'pathname'
+require 'fileutils'
 
 
 class ThumbnailPool
@@ -57,6 +58,26 @@ class ThumbnailPool
       end
     end
     thumbs.compact
+  end
+
+  # Clean unused thumbnails.
+  def clean
+    thumbs = []
+    Pathname.new(@photo_dir).find do |f|
+      if f.file?
+        ext = File.extname(f)
+        thumbs << f.sub("#{@photo_dir}/", "").sub(ext, ".jpg")
+      end
+    end
+    Pathname.new(@dir).find do |f|
+      if f.file?
+        f2 = f.sub("#{@dir}/", "")
+        unless thumbs.include?(f2)
+          puts f2
+          FileUtils.rm(f)
+        end
+      end
+    end
   end
 
 end   # of class ThumbnailPool
