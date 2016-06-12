@@ -1,1 +1,1 @@
-PV_VERSION = '0.2.0'
+PV_VERSION = '0.3.0'
