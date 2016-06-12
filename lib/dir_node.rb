@@ -14,6 +14,7 @@ class DirNode
     @root = root
     @root_path = root_path ? root_path : path
     @children = []
+    @photo_count = 0
   end
 
   def self.read(dir)
@@ -22,10 +23,18 @@ class DirNode
     Find.find(dir) do |f|
       if File.directory?(f) && f != dir
         root.add(f)
+      elsif File.file?(f) && DirNode.photo?(f)
+        root.inc(File.dirname(f))
       end
     end
     root
   end
+
+  def self.photo?(file)
+    ext = File.extname(file).downcase
+    File.file?(file) && %w( .png .jpg .jpeg .bmp .gif ).include?(ext)
+  end
+
 
   def name
     @path.split("/")[-1]
@@ -51,6 +60,17 @@ class DirNode
     self
   end
 
+  def inc(path)
+    path2 = path.sub(/#{@path}\/?/, "")
+    unless path2.empty? || path2.start_with?(".")
+      m = path2.split("/")
+      ch = @children.select{|c| c.name == m[0] }.first
+      ch.inc(path)
+    else
+      @photo_count += 1
+    end
+  end
+
   def to_tree(ind = 0)
     result = ""
     result << " " * ind + "#{name}\n"
@@ -64,7 +84,7 @@ class DirNode
     ind = ind - 4 unless include_root
     result = ""
     result << " " * ind + "<ul>\n" if @root && include_root
-    result << " " * (ind + 2) + "<li data-path='#{rel_path}'>#{name}" if include_root
+    result << " " * (ind + 2) + "<li data-path='#{rel_path}'>#{name} (#{@photo_count})" if include_root
     unless @children.empty?
       result << "\n" if include_root
       result << " " * (ind + 4) + "<ul>\n"
