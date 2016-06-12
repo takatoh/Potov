@@ -18,8 +18,7 @@ class DirNode
   end
 
   def self.read(dir)
-    name = dir
-    root = DirNode.new(name, true)
+    root = DirNode.new(dir, true)
     Find.find(dir) do |f|
       if File.directory?(f) && f != dir
         root.add(f)
