@@ -81,8 +81,7 @@ class PotovApp < Sinatra::Base
   private
 
   def photo?(file)
-    ext = File.extname(file).downcase
-   File.file?(file) && %w( .png .jpg .jpeg .bmp .gif ).include?(ext)
+    DirNode.photo?(file)
   end
 
 end
