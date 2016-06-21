@@ -3,11 +3,10 @@
 
 require 'pathname'
 require 'fileutils'
+require 'photo_types'
 
 
 class ThumbnailPool
-
-  PHOTO_TYPES = %w( .png .bmp .jpg .jpeg .gif .tif .tiff )
 
   def initialize(thumbnail_dir, photo_dir)
     @dir = thumbnail_dir
@@ -30,8 +29,8 @@ class ThumbnailPool
   # Make thumbnail.
   def make(path)
     photo_path = "#{@photo_dir}/#{path}"
+    return nil unless PhotoTypes.photo?(photo_path)
     ext = File.extname(path)
-    return nil unless PHOTO_TYPES.include?(ext)
     thumb_path = "#{@dir}/#{path.sub(ext, ".jpg")}"
     thumb = Pathname.new(thumb_path)
     unless thumb.exist?
