@@ -3,6 +3,7 @@
 
 
 require 'find'
+require 'photo_types'
 
 
 class DirNode
@@ -22,16 +23,11 @@ class DirNode
     Find.find(dir) do |f|
       if File.directory?(f) && f != dir
         root.add(f)
-      elsif File.file?(f) && DirNode.photo?(f)
+      elsif File.file?(f) && PhotoTypes.photo?(f)
         root.inc(File.dirname(f))
       end
     end
     root
-  end
-
-  def self.photo?(file)
-    ext = File.extname(file).downcase
-    File.file?(file) && %w( .png .jpg .jpeg .bmp .gif ).include?(ext)
   end
 
 
