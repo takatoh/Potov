@@ -13,6 +13,7 @@ require './boot'
 require './version'
 require 'dir_node'
 require 'thumbnail_pool'
+require 'photo_types'
 
 
 class PotovApp < Sinatra::Base
@@ -52,7 +53,7 @@ class PotovApp < Sinatra::Base
     pool = ThumbnailPool.new(PV_CONFIG["thumbnail_dir"], PV_CONFIG["photo_dir"])
     dir = "#{PV_CONFIG["photo_dir"]}/#{params[:splat][0]}"
     @photos = Dir.glob("#{dir}/*").select do |f|
-      photo?(f)
+      PhotoTypes.photo?(f)
     end.map do |f|
       f = f.sub("#{PV_CONFIG["photo_dir"]}/", "")
       {
@@ -75,13 +76,6 @@ class PotovApp < Sinatra::Base
   get '/thumbnail/*' do
     pool = ThumbnailPool.new(PV_CONFIG["thumbnail_dir"], PV_CONFIG["photo_dir"])
     send_file pool.get(params[:splat][0])
-  end
-
-
-  private
-
-  def photo?(file)
-    DirNode.photo?(file)
   end
 
 end
