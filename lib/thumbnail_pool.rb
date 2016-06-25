@@ -14,10 +14,19 @@ class ThumbnailPool
   end
 
   # Get thumbnail path.
-  def get(path)
-    ext = File.extname(path)
-    path2 = path.sub(ext, ".jpg")
-    "#{@dir}/#{path2}"
+  def get(thumb_path)
+    thumbnail = File.join(@dir, thumb_path)
+    unless File.exist?(thumbnail)
+      PhotoTypes::PHOTO_TYPES.each do |t|
+        ext = File.extname(thumb_path)
+        photo = File.join(@photo_dir, thumb_path.sub(ext, t))
+        if File.exist?(photo)
+          make(photo.sub("#{@photo_dir}/", ""))
+          break
+        end
+      end
+    end
+    thumbnail
   end
 
   # Get thumbnail url path.
