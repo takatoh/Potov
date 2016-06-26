@@ -79,7 +79,10 @@ class DirNode
     ind = ind - 4 unless include_root
     result = ""
     result << " " * ind + "<ul>\n" if @root && include_root
-    result << " " * (ind + 2) + "<li data-path='#{rel_path}'>#{name} (#{@photo_count})" if include_root
+    if include_root
+      result << " " * (ind + 2) + "<li data-path='#{rel_path}'>#{name}"
+      result << " (#{@photo_count})" if @photo_count > 0
+    end
     unless @children.empty?
       result << "\n" if include_root
       result << " " * (ind + 4) + "<ul>\n"
