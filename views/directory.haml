@@ -8,6 +8,9 @@
       slideshow: true,
       slideshowAuto: false,
       slideshowSpeed: 4000,
+      slideshowStart: "start",
+      slideshowStop: "stop",
+      current: "{current}/{total}",
       maxWidth: '90%',
       maxHeight: '90%'
     });
@@ -22,5 +25,5 @@
     - @photos.each do |photo|
       %li
         %div.photobox
-          %a{ href: photo["photo"], target: "_blank", class: "gallery" }
+          %a{ href: photo["photo"], target: "_blank", class: "gallery", title: photo["filename"] }
             %img{ src: photo["thumbnail"] }
