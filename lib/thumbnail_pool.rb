@@ -45,7 +45,7 @@ class ThumbnailPool
     unless thumb.exist?
       parent = thumb.parent
       parent.mkpath unless parent.exist?
-      system("convert -scale 90x90 #{photo_path} #{thumb_path}")
+      system("convert -scale 90x90 -flatten #{photo_path} #{thumb_path}")
       thumb_path.sub("#{@dir}/", "")
     else
       nil
