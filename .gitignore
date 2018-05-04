@@ -1,3 +1,5 @@
 thumbnails/
 .sass-cache/
 *.yaml
+.bundle/
+vendor/
