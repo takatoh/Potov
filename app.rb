@@ -14,7 +14,7 @@ require 'potov'
 
 
 module Potov
-  class PotovApp < Sinatra::Base
+  class App < Sinatra::Base
 
     helpers do
       include Rack::Utils
@@ -76,5 +76,5 @@ module Potov
       send_file pool.get(params[:splat][0])
     end
 
-  end
+  end   # of class App
 end   # of module Potov
