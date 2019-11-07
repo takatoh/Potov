@@ -6,7 +6,7 @@ require 'find'
 require 'photo_types'
 
 
-mudule Potov
+module Potov
   class DirNode
 
     attr_reader :path

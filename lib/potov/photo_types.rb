@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 
-modume Potov
+module Potov
   module PhotoTypes
 
     PHOTO_TYPES = %w( .png .jpg .jpeg .bmp .gif )
