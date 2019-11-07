@@ -3,7 +3,7 @@
 
 
 require 'find'
-require 'photo_types'
+require 'potov/photo_types'
 
 
 module Potov
