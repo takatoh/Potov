@@ -1,4 +1,4 @@
-require './app'
+require 'potov'
 
 use Rack::ShowExceptions
 
