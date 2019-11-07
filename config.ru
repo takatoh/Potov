@@ -2,4 +2,4 @@ require './app'
 
 use Rack::ShowExceptions
 
-run PotovApp.new
+run Potov::PotovApp.new
