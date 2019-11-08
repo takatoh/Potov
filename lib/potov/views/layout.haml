@@ -2,7 +2,7 @@
 
 %html
   %head
-    %title #{PV_CONFIG["site_title"]}
+    %title #{Potov.site_title}
     %meta{ charset: "utf-8" }
     - @styles.each do |style|
       %link{ rel: "stylesheet", type: "text/css", href: "/#{style}.css" }
@@ -28,7 +28,7 @@
     %div#header
       %div#header_content
         %h1
-          %a{ href: "/" } #{PV_CONFIG["site_title"]}
+          %a{ href: "/" } #{Potov.site_title}
     %div#container
       %div#content
         != yield
