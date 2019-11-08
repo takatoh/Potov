@@ -1,5 +1,10 @@
 require 'potov'
 
+
 use Rack::ShowExceptions
+
+Potov.site_title    = "YOUR SITE TITLE"
+Potov.photo_dir     = "/path/to/photos"
+Potov.thumbnail_dir = "thumbnails"
 
 run Potov::App.new
