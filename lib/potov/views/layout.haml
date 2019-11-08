@@ -18,7 +18,7 @@
         $('#tree')
         .jstree()
         .bind('select_node.jstree', function(e, data) {
-          var path = '/dir/' + $('#' + data.node.id).attr('data-path');
+          const path = '/dir/' + $('#' + data.node.id).attr('data-path');
           $('#main').load(path);
         });
       });
