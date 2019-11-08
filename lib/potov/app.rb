@@ -32,7 +32,7 @@ module Potov
     # Root
 
     get '/' do
-      @root = DirNode.read(PV_CONFIG["photo_dir"])
+      @root = DirNode.read(photo_dir)
       @styles = %w( css/base )
       haml :index
     end
@@ -48,12 +48,12 @@ module Potov
 
     get '/dir/*' do
       @styles = %w( css/base )
-      pool = ThumbnailPool.new(PV_CONFIG["thumbnail_dir"], PV_CONFIG["photo_dir"])
-      dir = "#{PV_CONFIG["photo_dir"]}/#{params[:splat][0]}"
+      pool = ThumbnailPool.new(thumbnail_dir, photo_dir)
+      dir = "#{photo_dir}/#{params[:splat][0]}"
       @photos = Dir.glob("#{dir}/*").select do |f|
         PhotoTypes.photo?(f)
       end.map do |f|
-        f = f.sub("#{PV_CONFIG["photo_dir"]}/", "")
+        f = f.sub("#{photo_dir}/", "")
         {
           "photo"     => "/photo/#{f}",
           "thumbnail" => pool.get_url_path(f),
@@ -66,14 +66,29 @@ module Potov
     # Photo
 
     get '/photo/*' do
-      send_file "#{PV_CONFIG["photo_dir"]}/#{params[:splat][0]}"
+      send_file "#{photo_dir}/#{params[:splat][0]}"
      end
 
     # Thumbnail
 
     get '/thumbnail/*' do
-      pool = ThumbnailPool.new(PV_CONFIG["thumbnail_dir"], PV_CONFIG["photo_dir"])
+      pool = ThumbnailPool.new(thumbnail_dir, photo_dir)
       send_file pool.get(params[:splat][0])
+    end
+
+
+    private
+
+    def site_title
+      Potov.site_title
+    end
+
+    def photo_dir
+      Potov.photo_dir
+    end
+
+    def thumbnail_dir
+      Potov.thumbnail_dir
     end
 
   end   # of class App
