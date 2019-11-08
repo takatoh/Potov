@@ -3,3 +3,5 @@ thumbnails/
 *.yaml
 .bundle/
 vendor/
+pkg/
+config.ru
