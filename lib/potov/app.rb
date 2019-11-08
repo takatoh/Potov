@@ -26,7 +26,7 @@ module Potov
     set :run, true
 
     enable :static
-    set :public_folder, File.dirname(__FILE__) + "/static"
+#    set :public_folder, File.dirname(__FILE__) + "/static"
     enable :methodoverride
     enable :sessions
 
