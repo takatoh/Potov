@@ -9,7 +9,6 @@ require 'tilt/haml'
 require 'tilt/sass'
 require 'json'
 
-#require './boot'
 require 'potov/dir_node'
 require 'potov/photo_types'
 require 'potov/thumbnail_pool'
